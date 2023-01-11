@@ -2,7 +2,12 @@
 //  ContentView.swift
 //  Weather
 //
-//  Created by Felix Hennerich on 08.01.23.
+//  Created by Felix Hennerich on 08.01.23
+
+
+
+
+
 //
 
 import SwiftUI
@@ -17,7 +22,7 @@ struct ContentView: View {
         ZStack {
             backgroundView(isNight: $isNight)
             VStack{
-                Text("Cupertino, CA")
+                Text("Cupertino, CA ")
                     .font(.system(size: 32 , weight: .medium, design: .default))
                     .foregroundColor(.white)
                     .padding()
