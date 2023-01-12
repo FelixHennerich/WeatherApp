@@ -17,22 +17,21 @@ struct ContentView: View {
     
 
     @State public var isNight = true
-    
+
     var body: some View {
         ZStack {
             backgroundView(isNight: $isNight)
             VStack{
-                Text("Cupertino, CA ")
+                Text("\(name), \(country)")
                     .font(.system(size: 32 , weight: .medium, design: .default))
                     .foregroundColor(.white)
                     .padding()
                 VStack(spacing: 30){
-                    Image(systemName: "cloud.rain.fill")
-                        .renderingMode(.original)
+                    getImage(iconId: icon).renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 200, height: 200)
-                    Text("17°")
+                    Text("\(temp)°")
                         .font(.system(size: 70, weight: .medium))
                         .foregroundColor(Color.white)
                 }.padding(.bottom , 70)
@@ -68,7 +67,7 @@ struct ContentView: View {
                         .cornerRadius(20)
                 }
                 Button{
-                    abcd()
+                    print("nothing here")
                 }label: {
                     Text("Print Weather")
                         .frame(width: 200, height: 50)

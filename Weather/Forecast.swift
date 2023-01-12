@@ -45,7 +45,7 @@ let dateFormatter = DateFormatter()
 func abcd() {
     dateFormatter.dateFormat = "E, MMM, d"
 
-    apiService.getJSON(urlString: "https://api.openweathermap.org/data/3.0/onecall?lat=48.21318441976442&lon=9.030872305354816&exclude=current,minutely,hourly,daily&appid=cf3132ed19a74f78b2c28d4fc23785cc", dateDecodingStrategy: .secondsSince1970) { (result: Result<Forecast, APIService.APIError>)
+    apiService.getJSON(urlString: "https://api.openweathermap.org/data/2.5/weather?lat=48.21318441976442&lon=9.030872305354816&appid=ff0b85475d4b79d53e234ac28d93f240", dateDecodingStrategy: .secondsSince1970) { (result: Result<Forecast, APIService.APIError>)
         in
         switch result {
         case .success(let forecast):
