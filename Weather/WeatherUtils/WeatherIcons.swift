@@ -19,7 +19,7 @@ public func getImage(iconId: String) -> Image {
     }else if(iconId == "02n"){
         imgname = "cloud.moon.fill"
     }else if(iconId == "03d" || iconId == "03n"){
-        imgname = "cloud"
+        imgname = "cloud.fill"
     }else if(iconId == "04d" || iconId == "04n"){
         imgname = "cloud.fill"
     }else if(iconId == "09d" || iconId == "09n"){

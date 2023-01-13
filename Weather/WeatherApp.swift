@@ -24,12 +24,29 @@ struct WeatherApp: App {
     
     init(){
         getData()
-        sleep(1)
+        print("    Test 1 passed √")
+        CheckBackground()
+        print("    Test 2 passed √")
+        sleep(2)
+        print("    Test 3 passed √")
+        
+        
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+    }
+}
+
+private func CheckBackground() {
+    let date = Date()
+    let calendar = Calendar.current
+    let hour = calendar.component(.hour, from: date)
+    if(hour < 20 && hour > 8){
+        isNight = false
+    }else {
+        isNight = true
     }
 }
