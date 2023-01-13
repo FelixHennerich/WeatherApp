@@ -16,65 +16,60 @@ public var isNight = true
 
 struct ContentView: View {
     
-    @State public var location: String = ""
     @State public var refresh = 0
     @FocusState private var StateIsFocused: Bool
+    @State var selection: Int? = nil
 
 
     var body: some View {
-        ZStack {
-            backgroundView(isNight: isNight, refresh: refresh)
-            VStack{
-                Text("\(name), \(country)")
-                    .font(.system(size: 32 , weight: .medium, design: .default))
-                    .foregroundColor(.white)
-                    .padding()
-                VStack(spacing: 30){
-                    getImage(iconId: icon).renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 200, height: 200)
-                    Text("\(temp)°")
-                        .font(.system(size: 70, weight: .medium))
-                        .foregroundColor(Color.white)
-                }.padding(.bottom , 40)
-                HStack(spacing: 12){
-                    DaysView(dayname: "Min.",
-                             imagename: "thermometer.low",
-                             temp: temp_min)
-                    DaysView(dayname: "Max.",
-                             imagename: "thermometer.high",
-                             temp: temp_max)
+        NavigationView{
+            ZStack {
+                backgroundView(isNight: isNight, refresh: refresh)
+                VStack{
+                    Text("\(name), \(country)")
+                        .font(.system(size: 32 , weight: .medium, design: .default))
+                        .foregroundColor(.white)
+                        .padding()
+                    VStack(spacing: 30){
+                        getImage(iconId: icon).renderingMode(.original)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 200, height: 200)
+                        Text("\(temp)°")
+                            .font(.system(size: 70, weight: .medium))
+                            .foregroundColor(Color.white)
+                    }.padding(.bottom , 40)
+                    HStack(spacing: 12){
+                        DaysView(dayname: "Min.",
+                                 imagename: "thermometer.low",
+                                 temp: temp_min)
+                        DaysView(dayname: "Max.",
+                                 imagename: "thermometer.high",
+                                 temp: temp_max)
+                    }
+                    Spacer()
+                    
+                    NavigationLink {
+                        ChangeLocView().navigationBarBackButtonHidden()
+                    } label: {
+                        HStack{
+                            Spacer()
+                            Text("Change Location").foregroundColor(Color.white).bold()
+                            Spacer()
+                        }.accentColor(Color.black)
+                            .padding()
+                            .background(isNight ? Color(UIColor.darkGray) : Color.white)
+                            .cornerRadius(4.0)
+                            .padding(Edge.Set.vertical, 20)
+                    }
+
+                    Spacer()
                 }
-                Spacer()
                 
-                HStack(){
-                    TextField(text: $location, prompt: Text("Location:  (Now : \(name))").font(.system(size: 20, weight: .medium, design: .default)).foregroundColor(.gray)){
-                        
-                    }.frame(width: 300, height: 100)
-                        .textFieldStyle(.roundedBorder)
-                        .disableAutocorrection(true)
-                        .onSubmit {
-                            getNewLocationData(city: location)
-                            sleep(1)
-                            getData()
-                            hideKeyboard()
-                            refresh+=1
-                            StateIsFocused = false
-                        }
-                        .focused($StateIsFocused)
-                }
-                Button{
-                    refresh+=1;
-                }label: {
-                    Text("Update").foregroundColor(.white).font(.system(size: 20, weight: .bold, design: .default))
-                }
-                Spacer()
             }
-            
         }
+        
     }
-    
 }
 
 
