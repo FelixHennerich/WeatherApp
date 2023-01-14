@@ -11,6 +11,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 public var isNight = true
 
@@ -19,56 +20,67 @@ struct ContentView: View {
     @State public var refresh = 0
     @FocusState private var StateIsFocused: Bool
     @State var selection: Int? = nil
+    @State private var showNextView = false
 
 
     var body: some View {
-        NavigationView{
-            ZStack {
-                backgroundView(isNight: isNight, refresh: refresh)
-                VStack{
-                    Text("\(name), \(country)")
-                        .font(.system(size: 32 , weight: .medium, design: .default))
-                        .foregroundColor(.white)
-                        .padding()
-                    VStack(spacing: 30){
-                        getImage(iconId: icon).renderingMode(.original)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 200, height: 200)
-                        Text("\(temp)°")
-                            .font(.system(size: 70, weight: .medium))
-                            .foregroundColor(Color.white)
-                    }.padding(.bottom , 40)
-                    HStack(spacing: 12){
-                        DaysView(dayname: "Min.",
-                                 imagename: "thermometer.low",
-                                 temp: temp_min)
-                        DaysView(dayname: "Max.",
-                                 imagename: "thermometer.high",
-                                 temp: temp_max)
-                    }
-                    Spacer()
-                    
-                    NavigationLink {
-                        ChangeLocView().navigationBarBackButtonHidden()
-                    } label: {
-                        HStack{
-                            Spacer()
-                            Text("Change Location").foregroundColor(Color.white).bold()
-                            Spacer()
-                        }.accentColor(Color.black)
+            NavigationView{
+                RefreshableScrollView{
+                ZStack {
+                    VStack{
+                        Text("\(refresh)").font(.system(size: 1, weight: .ultraLight, design: .default)).foregroundColor(isNight ? .black : Color("darkblue")).padding(.bottom, 50)
+                        Text("\(name), \(country)")
+                            .font(.system(size: 32 , weight: .medium, design: .default))
+                            .foregroundColor(.white)
                             .padding()
-                            .background(isNight ? Color(UIColor.darkGray) : Color.white)
-                            .cornerRadius(4.0)
-                            .padding(Edge.Set.vertical, 20)
+                        VStack(spacing: 30){
+                            getImage(iconId: icon).renderingMode(.original)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 200, height: 200)
+                            Text("\(temp)°")
+                                .font(.system(size: 70, weight: .medium))
+                                .foregroundColor(Color.white)
+                        }.padding(.bottom , 40)
+                        HStack(spacing: 12){
+                            DaysView(dayname: "Min.",
+                                     imagename: "thermometer.low",
+                                     temp: temp_min)
+                            DaysView(dayname: "Max.",
+                                     imagename: "thermometer.high",
+                                     temp: temp_max)
+                        }
+                        Spacer()
+                        
+                        Button(action: {
+                            self.showNextView = true
+                            print("sheet opened")
+                        }, label:{
+                            HStack{
+                                Spacer()
+                                Text("Change Location").foregroundColor(isNight ? Color.white : Color.black).bold()
+                                Spacer()
+                            }.accentColor(Color.black)
+                                .padding()
+                                .background(isNight ? Color(UIColor.darkGray) : Color("darkblue"))
+                                .cornerRadius(4.0)
+                                .padding(Edge.Set.vertical, 20)
+                        }).sheet(isPresented: $showNextView) {
+                            ChangeLocView().navigationBarBackButtonHidden()
+                        }
+                        
+                        Spacer()
                     }
-
-                    Spacer()
+                    
                 }
-                
-            }
+            } onRefresh: {
+                print("refresh main page .-...")
+                refresh += 1
+            }.background(LinearGradient(gradient: Gradient(colors: [isNight ? .black : Color("darkerblue"), isNight ? Color("lightgray") : Color("lightblue")]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing)
+                         .edgesIgnoringSafeArea(.all)).ignoresSafeArea(.all)
         }
-        
     }
 }
 
@@ -76,6 +88,29 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+public struct RefreshableScrollView<Content: View>: View {
+    var content: Content
+    var onRefresh: () -> Void
+
+    public init(content: @escaping () -> Content, onRefresh: @escaping () -> Void) {
+        self.content = content()
+        self.onRefresh = onRefresh
+    }
+
+    public var body: some View {
+        List {
+            content
+                .listRowSeparatorTint(.clear)
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        }
+        .listStyle(.plain)
+        .refreshable {
+            onRefresh()
+        }
     }
 }
 
@@ -110,7 +145,7 @@ struct backgroundView: View {
     var body: some View {
         Text("\(refresh)")
         LinearGradient(gradient: Gradient(colors: [isNight ? .black : Color("darkerblue"), isNight ? Color("lightgray") : Color("lightblue")]),
-                       startPoint: .top,
+                       startPoint: .topLeading,
                        endPoint: .bottomTrailing)
         .edgesIgnoringSafeArea(.all)
     }
