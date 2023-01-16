@@ -74,6 +74,8 @@ struct ContentView: View {
                     
                 }
             } onRefresh: {
+                getData()
+                sleep(1)
                 print("refresh main page .-...")
                 refresh += 1
             }.background(LinearGradient(gradient: Gradient(colors: [isNight ? .black : Color("darkerblue"), isNight ? Color("lightgray") : Color("lightblue")]),

@@ -26,11 +26,10 @@ struct ChangeLocView: View {
                     .disableAutocorrection(true)
                     .onSubmit {
                         getNewLocationData(city: location)
-                        sleep(1)
-                        getData()
                         hideKeyboard()
                         StateIsFocused = false
-                        
+                        sleep(1)
+                        getData()
                         
                     }.submitLabel(.search)
                     .focused($StateIsFocused)
@@ -39,7 +38,6 @@ struct ChangeLocView: View {
                 Button(action: {
                     getNewLocationData(city: self.location)
                     sleep(1)
-                    getData()
                     hideKeyboard()
                     StateIsFocused = false
                 }, label: {
