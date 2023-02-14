@@ -32,7 +32,7 @@ struct ContentView: View {
                         Text("\(name), \(country)")
                             .font(.system(size: 32 , weight: .medium, design: .default))
                             .foregroundColor(.white)
-                            .padding()
+                            .padding(35)
                         VStack(spacing: 30){
                             getImage(iconId: icon).renderingMode(.original)
                                 .resizable()
