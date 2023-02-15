@@ -26,52 +26,48 @@ struct ContentView: View {
     var body: some View {
             NavigationView{
                 RefreshableScrollView{
-                ZStack {
-                    VStack{
-                        Text("\(refresh)").font(.system(size: 1, weight: .ultraLight, design: .default)).foregroundColor(isNight ? .black : Color("darkblue")).padding(.bottom, 50)
-                        Text("\(name), \(country)")
-                            .font(.system(size: 32 , weight: .medium, design: .default))
-                            .foregroundColor(.white)
-                            .padding(35)
-                        VStack(spacing: 30){
-                            getImage(iconId: icon).renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 200, height: 200)
-                            Text("\(temp)°")
-                                .font(.system(size: 70, weight: .medium))
-                                .foregroundColor(Color.white)
-                        }.padding(.bottom , 40)
-                        HStack(spacing: 12){
-                            DaysView(dayname: "Min.",
-                                     imagename: "thermometer.low",
-                                     temp: temp_min)
-                            DaysView(dayname: "Max.",
-                                     imagename: "thermometer.high",
-                                     temp: temp_max)
-                        }
-                        Spacer()
-                        
-                        Button(action: {
-                            self.showNextView = true
-                            print("sheet opened")
-                        }, label:{
+                    ZStack {
+                        VStack{
+                            HStack{
+                                Button(action:{
+                                    self.showNextView = true
+                                }, label: {
+                                    Image(systemName: "gear").renderingMode(.original)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 40, height: 40)
+                                        .position(x: screenWidth-60, y: 80)
+                                }).sheet(isPresented: $showNextView) {
+                                    SettingsView().presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
+                                }
+                            }
+                            Text("\(refresh)").font(.system(size: 1, weight: .ultraLight, design: .default)).foregroundColor(isNight ? .black : Color("darkblue")).padding(.bottom, 50)
+                            Text("\(name), \(country)")
+                                .font(.system(size: 32 , weight: .medium, design: .default))
+                                .foregroundColor(.white)
+                                .padding(30)
+                            VStack(spacing: 50){
+                                getImage(iconId: icon).renderingMode(.original)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 200, height: 200)
+                                Text("\(temp)°")
+                                    .font(.system(size: 70, weight: .medium))
+                                    .foregroundColor(Color.white)
+                            }.padding(.bottom , 50)
+                            HStack(spacing: 12){
+                                DaysView(dayname: "Min.",
+                                         imagename: "thermometer.low",
+                                         temp: temp_min)
+                                DaysView(dayname: "Max.",
+                                         imagename: "thermometer.high",
+                                         temp: temp_max)
+                            }
                             HStack{
                                 Spacer()
-                                Text("Change Location").foregroundColor(isNight ? Color.white : Color.black).bold()
-                                Spacer()
-                            }.accentColor(Color.black)
-                                .padding()
-                                .background(isNight ? Color(UIColor.darkGray) : Color("darkblue"))
-                                .cornerRadius(4.0)
-                                .padding(Edge.Set.vertical, 20)
-                        }).sheet(isPresented: $showNextView) {
-                            ChangeLocView().navigationBarBackButtonHidden()
+                            }
+
                         }
-                        
-                        Spacer()
-                    }
-                    
                 }
             } onRefresh: {
                 getData()

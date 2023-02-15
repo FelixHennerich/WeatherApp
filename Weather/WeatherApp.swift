@@ -39,7 +39,9 @@ struct WeatherApp: App {
         }
     }
 }
-
+/**
+ Check the time for Night- and Daymode
+ */
 private func CheckBackground() {
     let date = Date()
     let calendar = Calendar.current
@@ -50,3 +52,19 @@ private func CheckBackground() {
         isNight = true
     }
 }
+
+/**
+ Method to get the screenWidth in pixels
+ */
+public var screenWidth: CGFloat {
+    return UIScreen.main.bounds.width
+}
+
+/**
+ Method to get the screenHeight in pixels
+ */
+
+public var screenHeight: CGFloat {
+    return UIScreen.main.bounds.height
+}
+
