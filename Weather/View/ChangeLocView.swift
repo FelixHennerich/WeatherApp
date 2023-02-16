@@ -11,6 +11,8 @@ struct ChangeLocView: View {
     @FocusState private var StateIsFocused: Bool
     @State private var selectedItem: Int? = nil
     @State public var location: String = ""
+    @Binding var showSettingsView: Bool
+    @Binding var showLocationView: Bool
     
     var body: some View {
         NavigationView{
@@ -30,6 +32,8 @@ struct ChangeLocView: View {
                         StateIsFocused = false
                         sleep(1)
                         getData()
+                        showSettingsView.toggle()
+                        showLocationView.toggle()
                         
                     }.submitLabel(.search)
                     .focused($StateIsFocused)
@@ -40,6 +44,8 @@ struct ChangeLocView: View {
                     sleep(1)
                     hideKeyboard()
                     StateIsFocused = false
+                    showSettingsView.toggle()
+                    showLocationView.toggle()
                 }, label: {
                     HStack{
                         Spacer()
@@ -57,11 +63,5 @@ struct ChangeLocView: View {
             }
         }
         
-    }
-}
-
-struct ChangeLocView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChangeLocView()
     }
 }

@@ -20,7 +20,7 @@ struct ContentView: View {
     @State public var refresh = 0
     @FocusState private var StateIsFocused: Bool
     @State var selection: Int? = nil
-    @State private var showNextView = false
+    @State var showNextView = false
 
 
     var body: some View {
@@ -38,7 +38,7 @@ struct ContentView: View {
                                         .frame(width: 40, height: 40)
                                         .position(x: screenWidth-60, y: 80)
                                 }).sheet(isPresented: $showNextView) {
-                                    SettingsView().presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
+                                    SettingsView(showNextView: $showNextView).presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
                                 }
                             }
                             Text("\(refresh)").font(.system(size: 1, weight: .ultraLight, design: .default)).foregroundColor(isNight ? .black : Color("darkblue")).padding(.bottom, 50)

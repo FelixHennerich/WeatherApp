@@ -9,24 +9,32 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @State private var showNextView = false
+    @State var showNextViewSettings = false
+    @Binding var showNextView: Bool
     
     var body: some View {
         ScrollView{
             ZStack{
                 Spacer()
-                VStack{
+                VStack(spacing: 30){
                     HStack{
-                        Text("Settings").foregroundColor(.white).font(.system(size: 32, weight: .bold, design: .default)).padding(30)
+                        Text("Settings").font(.system(size: 32, weight: .bold, design: .default)).padding(30).foregroundColor(.white)
                     }.frame(width: screenWidth, height: 100)
                         .opacity(1)
                     Button(action: {
-                        self.showNextView = true
+                        self.showNextViewSettings = true
                     }, label: {
-                        Text("Change location")
-                    }).sheet(isPresented: $showNextView) {
-                        ChangeLocView().presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
+                        Text("Change location").foregroundColor(.white).font(.system(size: 20, weight: .medium, design: .default))
+                    }).sheet(isPresented: $showNextViewSettings) {
+                        ChangeLocView(showSettingsView: $showNextViewSettings, showLocationView: $showNextView).presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
                     }
+                    
+                    Button(action: {
+                        isNight.toggle()
+                        self.showNextView = false
+                    }, label: {
+                        Text("Change Color Mode").foregroundColor(.white).font(.system(size: 20, weight: .medium, design: .default))
+                    })
 
                 }
                 Spacer()
@@ -35,11 +43,5 @@ struct SettingsView: View {
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing)
                      .edgesIgnoringSafeArea(.all)).ignoresSafeArea(.all)
-    }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
     }
 }
