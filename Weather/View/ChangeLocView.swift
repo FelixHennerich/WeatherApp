@@ -13,6 +13,8 @@ struct ChangeLocView: View {
     @State public var location: String = ""
     @Binding var showSettingsView: Bool
     @Binding var showLocationView: Bool
+    @Binding var isNight: Bool
+    
     
     var body: some View {
         NavigationView{
@@ -34,6 +36,7 @@ struct ChangeLocView: View {
                         getData()
                         showSettingsView.toggle()
                         showLocationView.toggle()
+
                         
                     }.submitLabel(.search)
                     .focused($StateIsFocused)

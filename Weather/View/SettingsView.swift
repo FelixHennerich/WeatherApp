@@ -11,6 +11,8 @@ struct SettingsView: View {
     
     @State var showNextViewSettings = false
     @Binding var showNextView: Bool
+    @Binding var isNight: Bool
+    
     
     var body: some View {
         ScrollView{
@@ -26,7 +28,7 @@ struct SettingsView: View {
                     }, label: {
                         Text("Change location").foregroundColor(.white).font(.system(size: 20, weight: .medium, design: .default))
                     }).sheet(isPresented: $showNextViewSettings) {
-                        ChangeLocView(showSettingsView: $showNextViewSettings, showLocationView: $showNextView).presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
+                        ChangeLocView(showSettingsView: $showNextViewSettings, showLocationView: $showNextView, isNight: $isNight).presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
                     }
                     
                     Button(action: {

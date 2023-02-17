@@ -13,14 +13,16 @@
 import SwiftUI
 import UIKit
 
-public var isNight = true
 
 struct ContentView: View {
     
-    @State public var refresh = 0
     @FocusState private var StateIsFocused: Bool
     @State var selection: Int? = nil
     @State var showNextView = false
+    @State var refresh = 0
+    @ObservedObject var isNightvalue = isNight()
+
+
 
 
     var body: some View {
@@ -38,10 +40,10 @@ struct ContentView: View {
                                         .frame(width: 40, height: 40)
                                         .position(x: screenWidth-60, y: 80)
                                 }).sheet(isPresented: $showNextView) {
-                                    SettingsView(showNextView: $showNextView).presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
+                                    SettingsView(showNextView: $showNextView, isNight: $isNightvalue.isNightValue).presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
                                 }
                             }
-                            Text("\(refresh)").font(.system(size: 1, weight: .ultraLight, design: .default)).foregroundColor(isNight ? .black : Color("darkblue")).padding(.bottom, 50)
+                            Text("\(refresh)").font(.system(size: 1, weight: .ultraLight, design: .default)).foregroundColor(isNightvalue.isNightValue ? .black : Color("darkblue")).padding(.bottom, 50)
                             Text("\(name), \(country)")
                                 .font(.system(size: 32 , weight: .medium, design: .default))
                                 .foregroundColor(.white)
@@ -74,7 +76,7 @@ struct ContentView: View {
                 sleep(1)
                 print("refresh main page .-...")
                 refresh += 1
-            }.background(LinearGradient(gradient: Gradient(colors: [isNight ? .black : Color("darkerblue"), isNight ? Color("lightgray") : Color("lightblue")]),
+            }.background(LinearGradient(gradient: Gradient(colors: [isNightvalue.isNightValue ? .black : Color("darkerblue"), isNightvalue.isNightValue ? Color("lightgray") : Color("lightblue")]),
                                         startPoint: .topLeading,
                                         endPoint: .bottomTrailing)
                          .edgesIgnoringSafeArea(.all)).ignoresSafeArea(.all)
@@ -87,6 +89,10 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
+
+class isNight: ObservableObject{
+    @Published var isNightValue = true
 }
 
 public struct RefreshableScrollView<Content: View>: View {

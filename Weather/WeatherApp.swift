@@ -47,9 +47,9 @@ private func CheckBackground() {
     let calendar = Calendar.current
     let hour = calendar.component(.hour, from: date)
     if(hour < 20 && hour > 8){
-        isNight = false
+        isNight().isNightValue = false
     }else {
-        isNight = true
+        isNight().isNightValue = true
     }
 }
 
