@@ -14,6 +14,9 @@ import Foundation
  
  */
 
+/**
+ Location by city
+ */
 
 public func getNewLocationData(city: String){
     var i = 0

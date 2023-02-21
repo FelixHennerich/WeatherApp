@@ -13,6 +13,9 @@ public var lon = 9.030872305354816
 
 let iconurl = "http://openweathermap.org/img/wn/10d@2x.png"
 
+/**
+ Get all weather data by the api via JSON File and http request
+ */
 func getData(){
     print(lat)
     print(lon)

@@ -13,7 +13,6 @@ struct SettingsView: View {
     @Binding var showNextView: Bool
     @Binding var isNight: Bool
     
-    
     var body: some View {
         ScrollView{
             ZStack{

@@ -13,7 +13,9 @@
 import SwiftUI
 import UIKit
 
-
+/**
+ Mainscreen View (Weather)
+ */
 struct ContentView: View {
     
     @FocusState private var StateIsFocused: Bool
@@ -84,17 +86,26 @@ struct ContentView: View {
     }
 }
 
-
+/**
+ Preview method
+ */
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
 
+
+/**
+ Boolean of dark/light mode
+ */
 class isNight: ObservableObject{
-    @Published var isNightValue = true
+    @Published var isNightValue = CheckBackground()
 }
 
+/**
+ Refreshale Scroll View
+ */
 public struct RefreshableScrollView<Content: View>: View {
     var content: Content
     var onRefresh: () -> Void
@@ -117,6 +128,10 @@ public struct RefreshableScrollView<Content: View>: View {
         }
     }
 }
+
+/**
+ Day view for several days
+ */
 
 struct DaysView: View {
     
@@ -141,6 +156,10 @@ struct DaysView: View {
     }
 }
 
+/**
+ Background color gradient
+ */
+
 struct backgroundView: View {
     
     var isNight: Bool
@@ -155,6 +174,9 @@ struct backgroundView: View {
     }
 }
 
+/**
+ Hidekeyboard extension
+ */
 extension View {
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)

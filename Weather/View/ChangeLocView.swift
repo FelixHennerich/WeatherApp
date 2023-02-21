@@ -36,7 +36,6 @@ struct ChangeLocView: View {
                         getData()
                         showSettingsView.toggle()
                         showLocationView.toggle()
-
                         
                     }.submitLabel(.search)
                     .focused($StateIsFocused)
@@ -49,6 +48,7 @@ struct ChangeLocView: View {
                     StateIsFocused = false
                     showSettingsView.toggle()
                     showLocationView.toggle()
+                    
                 }, label: {
                     HStack{
                         Spacer()

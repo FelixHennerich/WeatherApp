@@ -25,7 +25,7 @@ struct WeatherApp: App {
     init(){
         getData()
         print("    Test 1 passed √")
-        CheckBackground()
+        //CheckBackground()
         print("    Test 2 passed √")
         sleep(2)
         print("    Test 3 passed √")
@@ -42,16 +42,17 @@ struct WeatherApp: App {
 /**
  Check the time for Night- and Daymode
  */
-private func CheckBackground() {
+public func CheckBackground() -> Bool {
     let date = Date()
     let calendar = Calendar.current
     let hour = calendar.component(.hour, from: date)
     if(hour < 20 && hour > 8){
-        isNight().isNightValue = false
+        return false
     }else {
-        isNight().isNightValue = true
+        return true
     }
 }
+
 
 /**
  Method to get the screenWidth in pixels

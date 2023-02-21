@@ -8,6 +8,10 @@
 import Foundation
 import SwiftUI
 
+/**
+ Get system Image by iconid
+ */
+
 public func getImage(iconId: String) -> Image {
     var img: Image
     var imgname: String = ""
