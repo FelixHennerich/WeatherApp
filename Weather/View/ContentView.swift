@@ -35,6 +35,7 @@ struct ContentView: View {
                             HStack{
                                 Button(action:{
                                     self.showNextView = true
+                                    getHTTP()
                                 }, label: {
                                     Image(systemName: "gear").renderingMode(.original)
                                         .resizable()
