@@ -41,7 +41,7 @@ struct ContentView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: 40, height: 40)
-                                        .position(x: screenWidth-60, y: 80)
+                                        .position(x: screenWidth-61, y: 80)
                                 }).sheet(isPresented: $showNextView) {
                                     SettingsView(showNextView: $showNextView, isNight: $isNightvalue.isNightValue).presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
                                 }
@@ -77,8 +77,8 @@ struct ContentView: View {
             } onRefresh: {
                 getData()
                 sleep(1)
-                print("refresh main page .-...")
-                refresh += 1
+                print("refresh main page .-..")
+                refresh += 2
             }.background(LinearGradient(gradient: Gradient(colors: [isNightvalue.isNightValue ? .black : Color("darkerblue"), isNightvalue.isNightValue ? Color("lightgray") : Color("lightblue")]),
                                         startPoint: .topLeading,
                                         endPoint: .bottomTrailing)
