@@ -14,6 +14,7 @@ struct ChangeLocView: View {
     @Binding var showSettingsView: Bool
     @Binding var showLocationView: Bool
     @Binding var isNight: Bool
+    @Binding var refresh: Int
     
     
     var body: some View {
@@ -36,6 +37,11 @@ struct ChangeLocView: View {
                         getData()
                         showSettingsView.toggle()
                         showLocationView.toggle()
+                        sleep(1)
+                        getData()
+                        sleep(1)
+                        print("refresh main page .-..")
+                        refresh += 2
                         
                     }.submitLabel(.search)
                     .focused($StateIsFocused)
@@ -48,7 +54,11 @@ struct ChangeLocView: View {
                     StateIsFocused = false
                     showSettingsView.toggle()
                     showLocationView.toggle()
-                    
+                    sleep(1)
+                    getData()
+                    sleep(1)
+                    print("refresh main page .-..")
+                    refresh += 2
                 }, label: {
                     HStack{
                         Spacer()
@@ -68,3 +78,4 @@ struct ChangeLocView: View {
         
     }
 }
+
