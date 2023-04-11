@@ -43,7 +43,7 @@ struct ContentView: View {
                                         .frame(width: 40, height: 40)
                                         .position(x: screenWidth-61, y: 80)
                                 }).sheet(isPresented: $showNextView) {
-                                    SettingsView(showNextView: $showNextView, isNight: $isNightvalue.isNightValue).presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
+                                    SettingsView(showNextView: $showNextView, isNight: $isNightvalue.isNightValue, refresh: $refresh).presentationDetents([.medium, .large]).navigationBarBackButtonHidden()
                                 }
                             }
                             Text("\(refresh)").font(.system(size: 1, weight: .ultraLight, design: .default)).foregroundColor(isNightvalue.isNightValue ? .black : Color("darkblue")).padding(.bottom, 50)
