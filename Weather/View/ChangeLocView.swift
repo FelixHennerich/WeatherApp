@@ -67,8 +67,8 @@ struct ChangeLocView: View {
                     }.accentColor(Color.black)
                         .padding()
                         .background(isNight ? Color(UIColor.darkGray) : Color("darkblue"))
-                        .cornerRadius(4.0)
-                        .padding(Edge.Set.vertical, 20)
+                        .cornerRadius(4.1)
+                        .padding(Edge.Set.vertical, 20.1)
                 })
                     
                     Spacer()
