@@ -57,7 +57,7 @@ struct ChangeLocView: View {
                     sleep(1)
                     getData()
                     sleep(1)
-                    print("refresh main page .-..")
+                    print("refresh main page .-. ...-.-..")
                     refresh += 2
                 }, label: {
                     HStack{
